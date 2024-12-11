@@ -1,4 +1,5 @@
 from utils.preprocessor import Preprocessor
+from utils.modelResultVisualizer import ModelResultVisualizer
 from models.randomForest import RandomForestModel
 from models.logisticRegressor import LogisticRegressionModel
 from models.SGDclassifier import SGDClassifierModel
@@ -26,6 +27,8 @@ if __name__ == "__main__":
         "XGBoost": XGBoostModel(),
         "CatBoost": CatBoostModel()
     }
+    
+    visualizer = ModelResultVisualizer()
 
     # Train and evaluate each model
     for name, model in models.items():
@@ -34,3 +37,21 @@ if __name__ == "__main__":
         accuracy = best_model.score(X_test, y_test)
         print(f"Best Parameters for {name}: {best_params}")
         print(f"{name} Model Accuracy: {accuracy}\n")
+        
+        
+        # Generate predictions and probabilities for visualization
+        y_pred = best_model.predict(X_test)
+        y_proba = best_model.predict_proba(X_test)[:, 1] if hasattr(best_model, 'predict_proba') else None
+        
+        # store results
+        visualizer.store_results(name, best_params, accuracy)
+
+        # Plot confusion matrix
+        visualizer.plot_confusion_matrix(y_test, y_pred, class_names=['Class 0', 'Class 1'])
+
+        # Plot classification report
+        visualizer.plot_classification_report(y_test, y_pred)
+
+        # Plot ROC curve 
+        if y_proba is not None:
+            visualizer.plot_roc_curve(y_test, y_proba)

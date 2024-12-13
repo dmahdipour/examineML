@@ -3,7 +3,7 @@ from sklearn.model_selection import GridSearchCV
 
 class CatBoostModel:
     def __init__(self):
-        self.model = CatBoostClassifier(verbose=0)
+        self.model = CatBoostClassifier(verbose=0, task_type='GPU')
 
     def train_with_grid_search(self, X_train, y_train):
         param_grid = {

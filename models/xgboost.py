@@ -3,7 +3,7 @@ from sklearn.model_selection import GridSearchCV
 
 class XGBoostModel:
     def __init__(self):
-        self.model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+        self.model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', tree_method='gpu_hist')
 
     def train_with_grid_search(self, X_train, y_train):
         param_grid = {

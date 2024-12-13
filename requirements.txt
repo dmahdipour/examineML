@@ -6,3 +6,5 @@ tqdm
 torch
 xgboost
 catboost
+seaborn
+pip install PyQt6

@@ -4,3 +4,5 @@ scikit-learn
 openpyxl
 tqdm
 torch
+xgboost
+catboost

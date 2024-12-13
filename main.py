@@ -11,6 +11,10 @@ from models.adaBoostClassifier import AdaBoostModel
 from models.knn import KNNModel
 from models.xgboost import XGBoostModel
 from models.catboost import CatBoostModel
+import torch
+
+device = "GPU" if torch.cuda.is_available() else "CPU"
+print (device)
 
 if __name__ == "__main__":
     
